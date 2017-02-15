@@ -22,14 +22,14 @@ class Admin
         $count_p = \App\Models\News::count($page);
         $page = $count_p[0];
         $count_post = $count_p[1];
-        $this->view->news = \App\Models\News::findAll($page);
-        $this->view->display(__DIR__ . '/../templates/admin.php', $page, $count_post);
+        $news = $this->view->news = \App\Models\News::findAll($page);
+        $this->view->display('admin.php', $page, $news, $count_post );
     }
 
     //контроллер открытия редактора для добвления одной новости в панели администратора
     public function actionInsert()
     {
-        $this->view->display(__DIR__ . '/../templates/insert.php', '', '');
+        $this->view->display('insert.php', '', '', '');
     }
 
     //контроллер добавления новости в панели администратора
@@ -58,8 +58,8 @@ class Admin
     public function actionEdit()
     {
         $id = (int)$_GET['id'];
-        $this->view->news = \App\Models\News::findOneById($id);
-        $this->view->display(__DIR__ . '/../templates/edit.php', '', '');
+        $news = $this->view->news = \App\Models\News::findOneById($id);
+        $this->view->display('edit.php', '', $news , '');
     }
 
     //контроллер обновления в базе данных отредактированной новости в панели администратора

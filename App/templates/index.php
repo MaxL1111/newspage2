@@ -1,53 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <META name="Content-Type" content="text/html; charset=utf-8">
-    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="UTF-8"/>
+    {% block stylesheets %}
     <link rel="stylesheet" href="App/templates/style.css">
-    <title>Новости</title>
+    {% endblock %}
+    <title>{% block title %}Новости{% endblock %}</title>
+
 </head>
+
 <body>
 
 <div id="header">
     <h2 align="center">PAGEnews.by</h2>
 </div>
+
 <script type="text/javascript" src="App/templates/xhr.js"></script>
 <a name="use"></a>
 <div id="content">
 
-    <?php foreach ($news as $item) : ?>
-        <table class="tab">
-            <tr>
-                <?php if (!empty($item->title)) : ?>
-                    <th align="left" colspan="4"><a
-                            href="index.php?ctrl=News&act=One&id=<?php echo $item->id; ?>"><?php echo $item->title; ?></a>
-                    </th>
-                <?php else : ?>
-                    -=Без имени=-
-                <?php endif ?>
-            </tr>
-            <tr>
-                <td width="90px"><p><?php echo $item->date; ?> </p></td>
-                <td><?php echo $item->text; ?> </td>
-            </tr>
-        </table>
-    <?php endforeach; ?>
+
+    {% for item in news %}
+    <table class="tab">
+        <tr>
+
+            <th align="left" colspan="4">
+                <a href="index.php?ctrl=News&act=One&id={{ item.id }} ">{{ item.title }}</a>
+            </th>
+
+        </tr>
+        <tr>
+            <td width="90px"><p>{{ item.date }}</p></td>
+            <td>{{ item.text }}</td>
+        </tr>
+    </table>
+    {% endfor %}
 
 
-    <?php
-    
-    if ($page - 4 > 0) $page4left = ' <a href=index.php?page=' . ($page - 4) . '>' . ($page - 4) . '</a>  ';
-    if ($page - 3 > 0) $page3left = ' <a href=index.php?page=' . ($page - 3) . '>' . ($page - 3) . '</a>  ';
-    if ($page - 2 > 0) $page2left = ' <a href=index.php?page=' . ($page - 2) . '>' . ($page - 2) . '</a>  ';
-    if ($page - 1 > 0) $page1left = '<a href=index.php?page=' . ($page - 1) . '>' . ($page - 1) . '</a>  ';
-    if ($page + 4 <= $count_post) $page4right = '  <a href=index.php?page=' . ($page + 4) . '>' . ($page + 4) . '</a>';
-    if ($page + 3 <= $count_post) $page3right = '  <a href=index.php?page=' . ($page + 3) . '>' . ($page + 3) . '</a>';
-    if ($page + 2 <= $count_post) $page2right = '  <a href=index.php?page=' . ($page + 2) . '>' . ($page + 2) . '</a>';
-    if ($page + 1 <= $count_post) $page1right = '  <a href=index.php?page=' . ($page + 1) . '>' . ($page + 1) . '</a>';
+    {% if page - 4 <= count_post %} {% set page4left = page - 4 %} {% endif %}
+    {% if page - 3 <= count_post %} {% set page3left = page - 3 %} {% endif %}
+    {% if page - 2 <= count_post %} {% set page2left = page - 2 %} {% endif %}
+    {% if page - 1 <= count_post %} {% set page1left = page - 1 %} {% endif %}
 
-    echo $page4left . $page3left . $page2left . $page1left . '<b>[ ' . $page . ' ]</b>' . $page1right . $page2right . $page3right . $page4right;
+    {% if page + 4 <= count_post %} {% set page4right = page + 4 %} {% endif %}
+    {% if page + 3 <= count_post %} {% set page3right = page + 3 %} {% endif %}
+    {% if page + 2 <= count_post %} {% set page2right = page + 2 %} {% endif %}
+    {% if page + 1 <= count_post %} {% set page1right = page + 1 %} {% endif %}
 
-    ?>
+    {% if page4left > 0 %}<a href="index.php?page={{ page4left }} "> {{ page4left }} </a>{% endif %}
+    {% if page3left > 0 %}<a href="index.php?page={{ page3left }} "> {{ page3left }} </a>{% endif %}
+    {% if page2left > 0 %}<a href="index.php?page={{ page2left }} "> {{ page2left }} </a>{% endif %}
+    {% if page1left > 0 %} <a href="index.php?page={{ page1left }} "> {{ page1left }} </a>{% endif %}
+    <b>[ {{ page }} ]</b>
+    <a href="index.php?page={{ page1right }} "> {{ page1right }} </a>
+    <a href="index.php?page={{ page2right }} "> {{ page2right }} </a>
+    <a href="index.php?page={{ page3right }} "> {{ page3right }} </a>
+    <a href="index.php?page={{ page4right }} "> {{ page4right }} </a>
 
     <hr>
     <a href="index.php?ctrl=Admin&act=Index">Панель администратора</a>

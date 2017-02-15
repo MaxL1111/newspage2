@@ -18,10 +18,10 @@
 
     <table class="tab">
         <tr>
-            <th><h3><?php echo $news->title; ?></h3></th>
+            <th><h3>{{ news.title }}</h3></th>
         </tr>
         <tr>
-            <td><p><?php echo $news->text; ?></p></td>
+            <td><p>{{ news.text }}</p></td>
         </tr>
     </table>
 
@@ -31,21 +31,22 @@
 
     <div id="info"></div>
 
-    <?php foreach ($news->autorcom as $item): ?>
+    {% for item in news.autorcom %}
+
     <table class="comments">
         <tr>
-            <td width="90px"><p><?php echo $item->autor_com; ?> </p></td>
+            <td width="90px"><p>{{ item.autor_com }}</p></td>
         </tr>
         <tr>
-            <td><?php echo $item->text_com; ?> </td>
+            <td>{{ item.text_com }}</td>
         </tr>
-        <?php endforeach; ?>
+        {% endfor %}
     </table>
 
     <hr>
 
     <table class="tab3">
-        <input type="hidden" id="page_id" name="page_id" value="<?php echo $news->id ?>">
+        <input type="hidden" id="page_id" name="page_id" value=" {{ news.id }}">
         <tr>
             <td>Мое имя (не менее двух символов)</td>
             <td><input id="autor_com" type="text" name="autor_com" maxlength="255"></td>

@@ -11,11 +11,11 @@
 <div id="header">
     <h2 align="center">PAGEnews.by</h2>
 </div>
-<a name="use"></a>
+
 <div id="content">
 
 
-    <h3 align="center"><?php echo $errors->getMessage(); ?></h3>
+    <h3 align="center">{{ errors->getMessage() }}</h3>
 
 
 </div>
