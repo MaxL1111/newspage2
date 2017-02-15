@@ -16,5 +16,5 @@ try {
 } catch (\App\Exceptions\Db $ex) {
     $obj = new \App\View();
     $obj->errors = $ex;
-    $obj->display(__DIR__ . '/App/templates/error.php', '', '');
+    $obj->display('error.php', '' , '', '');
 }
