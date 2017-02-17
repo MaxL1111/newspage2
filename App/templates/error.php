@@ -15,7 +15,7 @@
 <div id="content">
 
 
-    <h3 align="center">{{ errors->getMessage() }}</h3>
+    <h3 align="center">{{ errors.getMessage() }}</h3>
 
 
 </div>

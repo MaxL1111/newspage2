@@ -18,7 +18,7 @@ class Db
             throw new \App\Exceptions\Db(' Ошибка соединения с базой данных :(  Зайдите позже! ');
         }
     }
-    
+
     public function execute($sql, $params = [])
     {
         $sth = $this->dbh->prepare($sql);
@@ -36,6 +36,20 @@ class Db
         return [];
     }
 
+    //реализован генератор
+    public function queryEach($sql, $params, $class)
+    {
+        $sth = $this->dbh->prepare($sql);
+        $res = $sth->execute($params);
+
+        if (false !== $res) {
+            while ($result = $sth->fetch()) {
+                yield $result;
+            }
+        }
+    }
+
+
     public function nav($sql, $params = [])
     {
         $sth = $this->dbh->prepare($sql);
@@ -45,6 +59,6 @@ class Db
         }
         return [];
     }
-    
+
 
 }

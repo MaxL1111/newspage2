@@ -45,6 +45,7 @@ class News extends Model
     }
 
     //метод выборки всех записей из таблицы новостей, по 5 новостей на страницу
+  /*
     public static function findAll($page)
     {
         $start = $page * 5 - 5;
@@ -55,7 +56,14 @@ class News extends Model
             static::class
         );
     }
-
+*/
+    public static function findAll($page)
+    {
+        $start = $page * 5 - 5;
+        $db = Db::instance();
+        $sql = 'SELECT * FROM ' . static::TABLE . ' ORDER BY id DESC LIMIT ' . $start . ', 5';
+        return $db->queryEach($sql, [], static::class);
+    }
 
     //функция подсчета общего количества записей в таблице news
     // и определения вывода нужной страницы

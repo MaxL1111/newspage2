@@ -18,7 +18,7 @@
 <script type="text/javascript" src="App/templates/xhr.js"></script>
 <a name="use"></a>
 <div id="content">
-
+    
 
     {% for item in news %}
     <table class="tab">
